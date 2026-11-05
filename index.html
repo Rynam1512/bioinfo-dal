@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dalila ZEROUROU - Ingénieure Bioinformatique & Data</title>
+    
+    <!-- Polices Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Icônes FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- VARIABLES DE COULEUR --- */
+        :root {
+            --bg-color: #f8f9fc;
+            --text-main: #1e1b4b;
+            --text-muted: #4b5563;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --accent: #06b6d4;
+            --secondary-blue: #3b82f6;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(79, 70, 229, 0.08);
+            --transition: all 0.3s ease;
+
+            /* Couleurs pour les compétences */
+            --color-1: #8b5cf6;
+            --color-2: #ec4899;
+            --color-3: #3b82f6;
+            --color-4: #d946ef;
+            --color-5: #0ea5e9;
+            --color-6: #a855f7;
+            --color-7: #f43f5e;
+        }
+
+        /* --- GLOBAL --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; overflow-x: hidden; width: 100vw; }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        
+        /* --- GESTION DES LANGUES (NOUVELLE MÉTHODE ROBUSTE CSS) --- */
+        html[lang="fr"] .lang-en { display: none !important; }
+        html[lang="en"] .lang-fr { display: none !important; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); letter-spacing: 1px; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { font-weight: 600; font-size: 0.9rem; color: var(--text-main); padding: 5px 10px; border-radius: 8px; }
+        .nav-links a:hover { color: var(--accent); background: rgba(6, 182, 212, 0.1); }
+        .lang-switch {
+            background: linear-gradient(135deg, var(--primary), var(--secondary-blue)); color: var(--white); border: none; padding: 8px 16px;
+            border-radius: 20px; cursor: pointer; font-weight: bold; font-family: 'Montserrat'; transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+        .lang-switch:hover { transform: scale(1.05); filter: brightness(1.1); }
+        
+        /* Menu Mobile */
+        .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: var(--primary); z-index: 1001; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 130px 20px 60px 20px; position: relative; overflow: hidden; width: 100%;
+            background: linear-gradient(135deg, #f5f3ff 0%, #e0f2fe 50%, #eff6ff 100%);
+        }
+        .orb { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.4; z-index: 0; animation: float 10s infinite ease-in-out; }
+        .orb-1 { width: 350px; height: 350px; background: #818cf8; top: 10%; left: 10%; animation-delay: 0s; }
+        .orb-2 { width: 450px; height: 450px; background: #38bdf8; bottom: 5%; right: 10%; animation-delay: -5s; }
+        @keyframes float { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-30px) scale(1.05); } }
+
+        .hero-content { position: relative; z-index: 1; max-width: 1000px; width: 100%; }
+        
+        .profile-img-container {
+            width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: 0 auto 20px auto;
+            border: 4px solid var(--white); box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+            transition: var(--transition); position: relative; z-index: 2;
+        }
+        .profile-img-container:hover { transform: scale(1.05); border-color: var(--accent); }
+        .profile-img-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        .hero h1 { font-size: 3.2rem; color: var(--text-main); margin-bottom: 5px; }
+        .hero h2 { font-size: 1.5rem; color: var(--primary); margin-bottom: 20px; font-weight: 600; min-height: 35px; }
+        .hero p.intro-text { font-size: 1.05rem; color: var(--text-muted); margin: 0 auto 40px auto; max-width: 850px; text-align: justify; line-height: 1.7; }
+
+        .value-prop {
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px);
+            border-radius: 20px; padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.5); position: relative;
+        }
+        .value-prop h3 { font-size: 1.3rem; color: var(--primary); margin-bottom: 25px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        
+        .value-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .value-bubble {
+            background: var(--white); border-radius: 50px; padding: 12px 25px;
+            display: flex; align-items: center; gap: 10px; font-size: 0.95rem; font-weight: 600;
+            color: var(--text-main); box-shadow: 0 5px 15px rgba(79, 70, 229, 0.08);
+            border: 1px solid #e0e7ff; transition: var(--transition); cursor: default;
+        }
+        .value-bubble i { color: var(--accent); font-size: 1.1rem; }
+        .value-bubble:hover { transform: translateY(-5px) scale(1.03); border-color: var(--primary); box-shadow: 0 10px 20px rgba(79, 70, 229, 0.15); color: var(--primary); }
+
+        /* --- SECTIONS GLOBALES --- */
+        section { padding: 90px 40px; max-width: 1200px; margin: 0 auto; }
+        .section-title { font-size: 2.3rem; text-align: center; margin-bottom: 50px; color: var(--text-main); }
+        .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin: 15px auto 0; border-radius: 2px; }
+
+        /* --- COMPÉTENCES --- */
+        .skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .skill-box {
+            background: var(--white); border-radius: 15px; padding: 25px;
+            box-shadow: var(--shadow); border-top: 5px solid var(--primary);
+            transition: var(--transition); position: relative; overflow: hidden;
+        }
+        .skill-box:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(79, 70, 229, 0.15); }
+        .skill-box h3 { font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .skill-list { list-style: none; }
+        .skill-list li { position: relative; padding-left: 28px; margin-bottom: 12px; font-size: 0.95rem; font-weight: 500; color: var(--text-muted); line-height: 1.5; }
+        .skill-list li::before {
+            content: '\f00c'; font-family: 'FontAwesome'; position: absolute; left: 0; top: 3px;
+            font-size: 0.9rem; background: #f1f5f9; width: 18px; height: 18px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        }
+
+        /* --- TIMELINE ACADÉMIQUE --- */
+        .timeline { position: relative; max-width: 900px; margin: 0 auto; }
+        .timeline::after { content: ''; position: absolute; width: 4px; background: linear-gradient(to bottom, var(--primary), var(--accent)); top: 0; bottom: 0; left: 50%; margin-left: -2px; border-radius: 2px; }
+        .timeline-item { padding: 10px 40px; position: relative; width: 50%; }
+        .timeline-item::after { content: ''; position: absolute; width: 20px; height: 20px; right: -10px; background-color: var(--white); border: 4px solid var(--primary); top: 15px; border-radius: 50%; z-index: 1; }
+        .left { left: 0; text-align: right; }
+        .right { left: 50%; text-align: left; }
+        .right::after { left: -10px; }
+        .timeline-content { padding: 25px; background-color: var(--white); position: relative; border-radius: 15px; box-shadow: var(--shadow); transition: var(--transition); border-top: 4px solid transparent;}
+        .timeline-content:hover { transform: translateY(-5px); border-top-color: var(--primary);}
+        .timeline-content h3 { color: var(--primary); margin-bottom: 5px; font-size: 1.2rem; }
+        .timeline-content h4 { font-size: 0.95rem; color: var(--text-main); margin-bottom: 8px; }
+        .timeline-content p.date { font-size: 0.85rem; font-weight: bold; color: var(--accent); margin-bottom: 12px; }
+        .course-list { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; line-height: 1.5; }
+        
+        .pdf-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--primary); font-weight: 600; padding: 6px 12px; background: #e0e7ff; border-radius: 6px; transition: var(--transition); margin-top: 8px; }
+        .pdf-link:hover { background: var(--primary); color: var(--white); }
+
+        /* --- PROJETS & EXPÉRIENCES --- */
+        .filter-btns { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
+        .filter-btn { background: transparent; border: 1px solid #cbd5e1; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-family: 'Inter'; font-weight: 600; color: var(--text-muted); transition: var(--transition); }
+        .filter-btn.active, .filter-btn:hover { background: var(--primary); color: var(--white); border-color: var(--primary); box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2); }
+
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: var(--white); border-radius: 15px; padding: 30px; box-shadow: var(--shadow); transition: var(--transition); border-top: 4px solid transparent; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(79, 70, 229, 0.12); border-top-color: var(--accent); }
+        .card i.icon-proj { font-size: 2.3rem; color: var(--primary); margin-bottom: 15px; display: block; }
+        .card h3 { font-size: 1.2rem; margin-bottom: 5px; color: var(--primary); }
+        .card h4 { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; font-weight: 600; }
+        .card p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px; text-align: justify; }
+        .tools { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tools span { background: #e0e7ff; color: var(--primary); padding: 4px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: 600; }
+        
+        /* Style pour les liens des entreprises */
+        .company-link { color: inherit; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 5px; }
+        .company-link:hover { color: var(--accent); }
+        .company-link i { font-size: 0.8em; color: var(--accent); }
+
+        /* --- RECOMMANDATIONS --- */
+        .testimonials { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .testi-card { background: var(--white); padding: 30px; border-radius: 15px; box-shadow: var(--shadow); position: relative; display: flex; flex-direction: column; justify-content: space-between; border-left: 4px solid var(--primary); }
+        .testi-card i.fa-quote-left { font-size: 2rem; color: #c7d2fe; margin-bottom: 15px; }
+        .testi-card p.quote { font-style: italic; color: var(--text-muted); margin-bottom: 20px; text-align: justify; font-size: 0.95rem; }
+        .testi-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; border-top: 1px solid #f1f5f9; padding-top: 15px; }
+        .testi-card h4 { color: var(--text-main); margin-bottom: 3px; font-size: 1rem; }
+        .testi-card span.role { font-size: 0.8rem; color: var(--primary); font-weight: 600; display: block; }
+
+        /* --- FOOTER & CONTACT --- */
+        footer { background: #0f172a; color: var(--white); padding: 70px 20px 30px; text-align: center; }
+        .contact-content { max-width: 800px; margin: 0 auto 40px auto; }
+        .contact-content h2 { font-size: 2.3rem; margin-bottom: 15px; }
+        .socials { display: flex; justify-content: center; gap: 20px; margin: 25px 0; }
+        .socials a { display: flex; justify-content: center; align-items: center; width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.1); color: var(--white); font-size: 1.4rem; transition: var(--transition); }
+        .socials a:hover { background: var(--primary); transform: scale(1.1); box-shadow: 0 0 15px rgba(79, 70, 229, 0.5); }
+        
+        .qr-section-container { display: flex; justify-content: center; align-items: center; gap: 25px; margin: 35px auto; flex-wrap: wrap; }
+        .qr-container { background: var(--white); padding: 15px; border-radius: 12px; display: inline-block; box-shadow: 0 8px 20px rgba(0,0,0,0.2); transition: var(--transition); }
+        .qr-container:hover { transform: scale(1.05); }
+        .qr-container img { width: 120px; height: 120px; display: block; border-radius: 8px; }
+        .qr-message-box { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); padding: 15px 20px; border-radius: 12px; max-width: 320px; text-align: left; position: relative; backdrop-filter: blur(5px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .qr-message-box p { font-size: 0.95rem; color: #e2e8f0; line-height: 1.5; margin: 0; }
+        .qr-message-box::after { content: ''; position: absolute; right: -10px; top: 50%; transform: translateY(-50%); border-width: 8px 0 8px 10px; border-style: solid; border-color: transparent transparent transparent rgba(255, 255, 255, 0.15); animation: pulse-arrow 1.5s infinite ease-in-out; }
+        @keyframes pulse-arrow { 0%, 100% { transform: translateY(-50%) translateX(0); } 50% { transform: translateY(-50%) translateX(-4px); } }
+
+        .contact-info { font-size: 1.05rem; color: #93c5fd; margin-bottom: 10px; }
+        .copyright { font-size: 0.85rem; color: rgba(255,255,255,0.4); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+
+        /* Animations */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 900px) {
+            nav { padding: 15px 20px; }
+            .menu-toggle { display: block; }
+            
+            .nav-links {
+                position: fixed; top: 65px; right: 0; flex-direction: column; width: 100%; height: calc(100vh - 65px);
+                background: rgba(255, 255, 255, 0.98); padding: 40px 20px; box-shadow: -5px 10px 15px rgba(0,0,0,0.1);
+                align-items: center; gap: 20px; border-top: 1px solid #eee;
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+            }
+            .nav-links.active { transform: translateX(0); }
+            
+            .hero h1 { font-size: 2.2rem; }
+            .hero h2 { font-size: 1.2rem; }
+            section { padding: 60px 15px; }
+            
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 15px; text-align: left; }
+            .timeline-item::after { left: 21px; }
+            .left::after { left: 21px; }
+            
+            .timeline-item.right { left: 0; } 
+            
+            .qr-section-container { flex-direction: column; text-align: center; }
+            .qr-message-box::after { display: none; }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="logo">Dalila Z.</div>
+        
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <a href="#top" onclick="closeMenu()"><span class="lang-fr">Accueil</span><span class="lang-en">Home</span></a>
+            <a href="#skills" onclick="closeMenu()"><span class="lang-fr">Compétences</span><span class="lang-en">Skills</span></a>
+            <a href="#about" onclick="closeMenu()"><span class="lang-fr">Parcours</span><span class="lang-en">Background</span></a>
+            <a href="#projects" onclick="closeMenu()"><span class="lang-fr">Projets</span><span class="lang-en">Projects</span></a>
+            <a href="#recommendations" onclick="closeMenu()"><span class="lang-fr">Recommandations</span><span class="lang-en">Testimonials</span></a>
+            <a href="#contact" onclick="closeMenu()"><span class="lang-fr">Contact</span><span class="lang-en">Contact</span></a>
+            <button class="lang-switch" onclick="toggleLanguage(); closeMenu();">EN / FR</button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="hero-content">
+            
+            <div class="profile-img-container fade-in">
+                <img src="./moi.jpg" alt="Dalila ZEROUROU">
+            </div>
+
+            <h1 class="fade-in">Dalila ZEROUROU</h1>
+            <h2 id="typewriter" class="fade-in"></h2>
+            
+            <p class="intro-text fade-in lang-fr">Diplômée en Informatique Biomédicale et Bioinformatique, je combine une solide double compétence en biologie cellulaire et en ingénierie des données pour concevoir des pipelines bioinformatiques reproductibles, structurer des entrepôts de santé et valoriser des données multi-omiques complexes (telles que mes travaux en lipidomique à l'Institut Curie). Actuellement à la recherche d’opportunités en bioinformatique, data engineering ou data science appliquée à la recherche biomédicale et à la santé.</p>
+            <p class="intro-text fade-in lang-en">Graduated in Biomedical Informatics and Bioinformatics, I combine a strong dual background in cellular biology and data engineering to design reproducible bioinformatics pipelines, structure healthcare data warehouses, and analyze complex multi-omics datasets (such as my lipidomics work at Institut Curie). Currently seeking opportunities in bioinformatics, data engineering, or data science applied to biomedical research and healthcare.</p>
+
+            <div class="value-prop fade-in">
+                <h3>
+                    <span class="lang-fr">🤔 Ce que je peux apporter à votre équipe</span>
+                    <span class="lang-en">🤔 What I can bring to your team</span>
+                </h3>
+                <div class="value-grid">
+                    <div class="value-bubble"><i class="fas fa-dna"></i><span class="lang-fr">Analyse de données biomédicales et omiques</span><span class="lang-en">Biomedical & omics data analysis</span></div>
+                    <div class="value-bubble"><i class="fas fa-cogs"></i><span class="lang-fr">Conception de pipelines bioinformatiques</span><span class="lang-en">Design of bioinformatics pipelines</span></div>
+                    <div class="value-bubble"><i class="fas fa-chart-pie"></i><span class="lang-fr">Outils de visualisation de données</span><span class="lang-en">Data visualization & analysis tools</span></div>
+                    <div class="value-bubble"><i class="fas fa-server"></i><span class="lang-fr">Data management</span><span class="lang-en">Data management</span></div>
+                    <div class="value-bubble"><i class="fas fa-database"></i><span class="lang-fr">Développement de bases de données</span><span class="lang-en">Database design & development</span></div>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- LES 7 BLOCS DE COMPÉTENCES -->
+    <section id="skills">
+        <h2 class="section-title fade-in">
+            <span class="lang-fr">Compétences Techniques & Atouts</span>
+            <span class="lang-en">Technical Skills & Strengths</span>
+        </h2>
+        
+        <div class="skills-container">
+            
+            <div class="skill-box fade-in" style="border-top-color: var(--color-1);">
+                <h3 style="color: var(--color-1);"><i class="fas fa-dna"></i> <strong>Bioinformatique & données omiques</strong></h3>
+                <ul class="skill-list">
+                    <style>.skill-box[style*="--color-1"] li::before { color: var(--color-1); }</style>
+                    <li class="lang-fr">Données biologiques, biomédicales et multi-omiques (transcriptomique, lipidomique, métabolomique)</li>
+                    <li class="lang-en">Biological, biomedical and multi-omics data (transcriptomics, lipidomics, metabolomics)</li>
+                    <li class="lang-fr">Spectrométrie de masse, séquençage/NGS</li>
+                    <li class="lang-en">Mass spectrometry, sequencing/NGS</li>
+                    <li class="lang-fr">Annotation biologique, contrôle qualité, normalisation, quantification, enrichissement sémantique</li>
+                    <li class="lang-en">Biological annotation, quality control, normalization, quantification, semantic enrichment</li>
+                    <li>Snakemake, CellRanger, Seurat, Biopython, LIPID MAPS.</li>
+                </ul>
+            </div>
+
+            <div class="skill-box fade-in" style="border-top-color: var(--color-2);">
+                <h3 style="color: var(--color-2);"><i class="fas fa-database"></i> <strong>Data Management, Pipelines & Ontologies</strong></h3>
+                <ul class="skill-list">
+                    <style>.skill-box[style*="--color-2"] li::before { color: var(--color-2); }</style>
+                    <li class="lang-fr">Pipelines bioinformatiques & ETL</li><li class="lang-en">Bioinformatics pipelines & ETL</li>
+                    <li class="lang-fr">Automatisation de workflows</li><li class="lang-en">Workflow automation</li>
+                    <li class="lang-fr">Préparation, intégration et structuration de données hétérogènes</li><li class="lang-en">Preparation, integration and structuring of heterogeneous data</li>
+                    <li class="lang-fr">Bases & entrepôts de données</li><li class="lang-en">Databases & data warehouses</li>
+                    <li class="lang-fr">Traçabilité, logs, documentation, reproductibilité des analyses</li><li class="lang-en">Traceability, logs, documentation, reproducibility of analyses</li>
+                    <li class="lang-fr">Ontologies & terminologies biomédicales : LIPID MAPS, MeSH, CIM-10, CCAM</li>
+                    <li class="lang-en">Biomedical ontologies & terminologies: LIPID MAPS, MeSH, ICD-10, CCAM</li>
+                    <li class="lang-fr">Interopérabilité, UML, confidentialité & sécurité des données de santé</li>
+                    <li class="lang-en">Interoperability, UML, healthcare data confidentiality & security</li>
+                    <li>PostgreSQL, MySQL, Oracle, DBeaver.</li>
+                </ul>
+            </div>
+
+            <div class="skill-box fade-in" style="border-top-color: var(--color-3);">
+                <h3 style="color: var(--color-3);"><i class="fas fa-code"></i> <strong>Programmation & Développement</strong></h3>
+                <ul class="skill-list">
+                    <style>.skill-box[style*="--color-3"] li::before { color: var(--color-3); }</style>
+                    <li>Python, R, Java, SQL, Bash/Shell, JavaScript, PHP, HTML/CSS</li>
+                    <li class="lang-fr">API REST, JSON, web scraping, NLP, extraction d'entités</li>
+                    <li class="lang-en">REST API, JSON, web scraping, NLP, entity extraction</li>
+                    <li class="lang-fr">Traitement JSON, scripts batch, développement front-end/back-end responsive</li>
+                    <li class="lang-en">JSON processing, batch scripts, responsive front-end/back-end development</li>
+                    <li>Git, GitHub, GitHub Actions, Linux, Windows</li>
+                    <li>VS Code, PyCharm, Anaconda, Markdown, PythonAnywhere, XAMPP/WAMP</li>
+                    <li class="lang-fr">Pair programming & outils collaboratifs.</li><li class="lang-en">Pair programming & collaborative tools.</li>
+                </ul>
+            </div>
+
+            <div class="skill-box fade-in" style="border-top-color: var(--color-4);">
+                <h3 style="color: var(--color-4);"><i class="fas fa-brain"></i> <strong>Data Science, Machine Learning & IA</strong></h3>
+                <ul class="skill-list">
+                    <style>.skill-box[style*="--color-4"] li::before { color: var(--color-4); }</style>
+                    <li class="lang-fr">Apprentissage supervisé (Random Forest, arbres de décision) et non supervisé (K-means, clustering)</li>
+                    <li class="lang-en">Supervised (Random Forest, decision trees) and unsupervised learning (K-means, clustering)</li>
+                    <li class="lang-fr">Classification, réduction de dimension (ACP/PCA, PLS-DA, t-SNE, UMAP)</li>
+                    <li class="lang-en">Classification, dimensionality reduction (PCA, PLS-DA, t-SNE, UMAP)</li>
+                    <li class="lang-fr">Validation croisée, GridSearchCV</li><li class="lang-en">Cross-validation, GridSearchCV</li>
+                    <li class="lang-fr">Deep Learning : réseaux de neurones (MLP, CNN, RNN)</li><li class="lang-en">Deep Learning: neural networks (MLP, CNN, RNN)</li>
+                    <li>LLM, Mistral API</li>
+                    <li>pandas, NumPy, SciPy, scikit-learn, Keras, TensorFlow.</li>
+                </ul>
+            </div>
+
+            <div class="skill-box fade-in" style="border-top-color: var(--color-5);">
+                <h3 style="color: var(--color-5);"><i class="fas fa-chart-bar"></i> <strong>Statistiques & Biostatistiques</strong></h3>
+                <ul class="skill-list">
+                    <style>.skill-box[style*="--color-5"] li::before { color: var(--color-5); }</style>
+                    <li class="lang-fr">Statistiques descriptives, tests d'hypothèse (t-test, Chi², ANOVA)</li>
+                    <li class="lang-en">Descriptive statistics, hypothesis testing (t-test, Chi², ANOVA)</li>
+                    <li class="lang-fr">Tests non paramétriques (Wilcoxon, Kruskal-Wallis)</li><li class="lang-en">Non-parametric tests (Wilcoxon, Kruskal-Wallis)</li>
+                    <li class="lang-fr">Régressions linéaire et logistique, modélisation statistique.</li>
+                    <li class="lang-en">Linear and logistic regressions, statistical modeling.</li>
+                </ul>
+            </div>
+
+            <div class="skill-box fade-in" style="border-top-color: var(--color-6);">
+                <h3 style="color: var(--color-6);"><i class="fas fa-chart-pie"></i> <strong>Visualisation, Dashboards & Traitement d'images</strong></h3>
+                <ul class="skill-list">
+                    <style>.skill-box[style*="--color-6"] li::before { color: var(--color-6); }</style>
+                    <li class="lang-fr">Visualisation de données biologiques, biomédicales et multi-omiques</li>
+                    <li class="lang-en">Visualization of biological, biomedical and multi-omics data</li>
+                    <li class="lang-fr">Dashboards interactifs, interfaces d'analyse, reporting scientifique</li>
+                    <li class="lang-en">Interactive dashboards, analysis interfaces, scientific reporting</li>
+                    <li>Streamlit, Shiny, Plotly, ggplot2, Matplotlib, seaborn, RMarkdown, Jupyter Notebook</li>
+                    <li class="lang-fr">Traitement d'images biomédicales : OpenCV, scikit-image, Fiji, QuPath</li>
+                    <li class="lang-en">Biomedical image processing: OpenCV, scikit-image, Fiji, QuPath</li>
+                    <li>RStudio, Microsoft Office, Zotero.</li>
+                </ul>
+            </div>
+
+            <div class="skill-box fade-in" style="border-top-color: var(--color-7);">
+                <h3 style="color: var(--color-7);"><i class="fas fa-star"></i> <strong>Atouts & Savoir-être</strong></h3>
+                <ul class="skill-list">
+                    <style>.skill-box[style*="--color-7"] li::before { color: var(--color-7); }</style>
+                    <li class="lang-fr">Rigueur analytique & Méthodologie</li><li class="lang-en">Analytical rigor & Methodology</li>
+                    <li class="lang-fr">Forte autonomie & Proactivité</li><li class="lang-en">Strong autonomy & Proactivity</li>
+                    <li class="lang-fr">Esprit critique & Résolution de problèmes</li><li class="lang-en">Critical thinking & Problem solving</li>
+                    <li class="lang-fr">Travail en équipe pluridisciplinaire</li><li class="lang-en">Multidisciplinary teamwork</li>
+                    <li class="lang-fr">Adaptabilité rapide aux nouvelles technologies</li><li class="lang-en">Fast adaptability to new technologies</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PARCOURS ACADÉMIQUE -->
+    <section id="about">
+        <h2 class="section-title fade-in">
+            <span class="lang-fr">Formation Académique</span>
+            <span class="lang-en">Academic Background</span>
+        </h2>
+        
+        <div class="timeline fade-in">
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3 class="lang-fr">Master Informatique Biomédicale</h3>
+                    <h3 class="lang-en">Master's in Biomedical Informatics</h3>
+                    <h4>Université Sorbonne Paris Nord & Université Paris Cité</h4>
+                    <p class="date">Sept. 2024 - Juil. 2026</p>
+                    <p class="course-list lang-fr">
+                        <strong>Enseignements clés :</strong> Modélisation des SIS, Algorithmique et SGBD, Bioinformatique, Statistiques & R, POO, Technologies du Web, Machine Learning, Traitement d'images médicales.<br>
+                        <em>Marraine d'étudiants pour l'ASIB.</em>
+                    </p>
+                    <p class="course-list lang-en">
+                        <strong>Key coursework:</strong> Health Information Systems Modeling, Algorithms & DBMS, Bioinformatics, Statistics & R, OOP, Web Tech in Health, Machine Learning, Medical Image Processing.<br>
+                        <em>Student Mentor for ASIB.</em>
+                    </p>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <!-- LIENS CORRIGÉS ICI -->
+                        <a href="https://odf.u-paris.fr/plugins/odf-web/uparis/_content/subprogram-cdmfr-fruai0754814aprk168nor5-fr/Master%20Sant%C3%A9%20publique%20-%20Parcours%20_%20Informatique%20biom%C3%A9dicale.pdf" target="_blank" class="pdf-link"><i class="fas fa-file-pdf"></i> <span class="lang-fr">Prog. Paris Cité</span><span class="lang-en">Paris Cité Prog.</span></a>
+                        <a href="https://smbh.univ-paris13.fr/images/Formations/masters-sante-publique/master-SMBH-informatique-biomedicale.pdf" target="_blank" class="pdf-link"><i class="fas fa-file-pdf"></i> <span class="lang-fr">Prog. USPN</span><span class="lang-en">USPN Prog.</span></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3 class="lang-fr">Licence Sciences de la Vie (Biologie Cellulaire)</h3>
+                    <h3 class="lang-en">Bachelor's in Life Sciences (Cell Biology)</h3>
+                    <h4>Université Sorbonne Paris Nord</h4>
+                    <p class="date">Sept. 2021 - Juin 2024</p>
+                    <p class="course-list lang-fr">
+                        <strong>Enseignements clés :</strong> Biologie cellulaire et moléculaire, Génétique humaine, Épigénétique, Immunologie, Physiologie, Endocrinologie, Bases de données, BioPerl.
+                    </p>
+                    <p class="course-list lang-en">
+                        <strong>Key coursework:</strong> Cell and Molecular Biology, Human Genetics, Epigenetics, Immunology, Physiology, Endocrinology, Databases, BioPerl.
+                    </p>
+                    <!-- LIEN CORRIGÉ ICI -->
+                    <a href="https://smbh.univ-paris13.fr/images/Formations/licences/licence-SMBH-SV_15-12-2021.pdf" target="_blank" class="pdf-link"><i class="fas fa-file-pdf"></i> <span class="lang-fr">Programme Licence</span><span class="lang-en">Bachelor Program</span></a>
+                </div>
+            </div>
+
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3 class="lang-fr">PACES (1ère Année de Santé)</h3>
+                    <h3 class="lang-en">First Year of Health Studies (PACES)</h3>
+                    <h4>Université Sorbonne Paris Nord</h4>
+                    <p class="date">Sept. 2019 - Juin 2021</p>
+                    <p class="course-list lang-fr">Acquisition des savoirs fondamentaux en anatomie, biochimie, histologie, pharmacologie et santé publique.</p>
+                    <p class="course-list lang-en">Acquisition of fundamental knowledge in anatomy, biochemistry, histology, pharmacology, and public health.</p>
+                    <!-- LIEN CORRIGÉ ICI -->
+                    <a href="https://smbh.univ-paris13.fr/images/Formations/SMBH-PACES.pdf" target="_blank" class="pdf-link"><i class="fas fa-file-pdf"></i> <span class="lang-fr">Programme PACES</span><span class="lang-en">PACES Program</span></a>
+                </div>
+            </div>
+
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3 class="lang-fr">CPGE MPSI</h3>
+                    <h3 class="lang-en">Preparatory Class MPSI</h3>
+                    <h4>Lycée Paul Éluard, Saint-Denis</h4>
+                    <p class="date">Sept. 2018 - Juin 2019</p>
+                    <p class="course-list lang-fr">Formation scientifique exigeante (Mathématiques, Physique, Sciences de l'Ingénieur).</p>
+                    <p class="course-list lang-en">Rigorous scientific training (Math, Physics, Engineering Sciences).</p>
+                    <!-- LIEN CORRIGÉ ICI -->
+                    <a href="https://www.lyceepauleluard.fr/site/telechargements/Orientation/depliant-cpge.pdf" target="_blank" class="pdf-link"><i class="fas fa-file-pdf"></i> <span class="lang-fr">Programme CPGE</span><span class="lang-en">CPGE Program</span></a>
+                </div>
+            </div>
+            
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3 class="lang-fr">Baccalauréat Scientifique</h3>
+                    <h3 class="lang-en">Scientific Baccalaureate</h3>
+                    <h4>Lycée Auguste Blanqui (Mention Bien)</h4>
+                    <p class="date">Sept. 2017 - Juil. 2018</p>
+                    <p class="course-list lang-fr">Option Mathématiques.</p>
+                    <p class="course-list lang-en">Mathematics Specialization.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPÉRIENCES & PROJETS -->
+    <section id="projects">
+        <h2 class="section-title fade-in">
+            <span class="lang-fr">Expériences & Projets Techniques</span>
+            <span class="lang-en">Experience & Technical Projects</span>
+        </h2>
+        
+        <div class="filter-btns fade-in">
+            <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+            <button class="filter-btn" onclick="filterProjects('exp')"><span class="lang-fr">Expériences Pro. & Stages</span><span class="lang-en">Experience & Internships</span></button>
+            <button class="filter-btn" onclick="filterProjects('omics')">Omics & Data Science</button>
+            <button class="filter-btn" onclick="filterProjects('data-eng')">Data Engineering</button>
+        </div>
+
+        <div class="projects-grid">
+            
+            <div class="card fade-in project-item exp omics data-eng">
+                <i class="fas fa-flask icon-proj"></i>
+                <h3 class="lang-fr">Bioinformatics Intern - Pipeline Lipidomique</h3>
+                <h3 class="lang-en">Bioinformatics Intern - Lipidomics Pipeline</h3>
+                
+                <!-- AJOUT DES LIENS EXTERNES VERS LES ENTREPRISES ICI -->
+                <h4 class="lang-fr">
+                    <a href="https://curie.fr/plateforme/curiecoretech-metabolomique-et-lipidomique" target="_blank" class="company-link">
+                        Institut Curie <i class="fas fa-external-link-alt"></i>
+                    </a> 
+                    (Fév 2026 - Aujourd'hui)
+                </h4>
+                <h4 class="lang-en">
+                    <a href="https://curie.fr/plateforme/curiecoretech-metabolomique-et-lipidomique" target="_blank" class="company-link">
+                        Institut Curie <i class="fas fa-external-link-alt"></i>
+                    </a> 
+                    (Feb 2026 - Present)
+                </h4>
+                
+                <p class="lang-fr">Conception et développement d'un pipeline ETL automatisé sous Python pour structurer et traiter des données lipidomiques haut-débit (spectrométrie de masse). Création du dashboard interactif "LipidLab Curie" pour l'exploration biostatistique des profils lipidiques en recherche oncologique, intégrant la standardisation sémantique LIPID MAPS.</p>
+                <p class="lang-en">Designed and developed an automated Python ETL pipeline to structure high-throughput lipidomics data. Built the interactive dashboard "LipidLab Curie" for biostatistical exploration of lipid profiles in oncology, integrating LIPID MAPS semantic standardization.</p>
+                <div class="tools">
+                    <span>Python</span><span>PostgreSQL</span><span>ETL</span><span>Biostatistiques</span>
+                </div>
+            </div>
+
+            <div class="card fade-in project-item exp data-eng">
+                <i class="fas fa-laptop-code icon-proj"></i>
+                <h3 class="lang-fr">Web Dev Intern - MedConfWatcher</h3>
+                <h3 class="lang-en">Web Dev Intern - MedConfWatcher</h3>
+                
+                <!-- AJOUT DES LIENS EXTERNES VERS LES ENTREPRISES ICI -->
+                <h4 class="lang-fr">
+                    <a href="https://www.limics.fr/" target="_blank" class="company-link">
+                        Laboratoire LIMICS <i class="fas fa-external-link-alt"></i>
+                    </a> 
+                    (Mai 2025 - Sept 2025)
+                </h4>
+                <h4 class="lang-en">
+                    <a href="https://www.limics.fr/" target="_blank" class="company-link">
+                        LIMICS Laboratory <i class="fas fa-external-link-alt"></i>
+                    </a> 
+                    (May 2025 - Sept 2025)
+                </h4>
+                
+                <p class="lang-fr">Développement complet d'une plateforme web pour la veille automatisée des conférences scientifiques en santé. Implémentation du pipeline de collecte de données (52 sources de web scraping), nettoyage, normalisation et enrichissement sémantique via NLP. Création de l'interface responsive (HTML/CSS/JS/PHP).</p>
+                <p class="lang-en">Full-stack development of a web platform for automated monitoring of scientific healthcare conferences. Implemented a data collection pipeline (52 web scraping sources), normalization, and NLP semantic enrichment. Created the responsive interface.</p>
+                <div class="tools">
+                    <span>Python</span><span>NLP</span><span>Web Scraping</span><span>PHP/JS</span>
+                </div>
+            </div>
+
+            <div class="card fade-in project-item exp data-eng">
+                <i class="fas fa-box-open icon-proj"></i>
+                <h3 class="lang-fr">Déclarante en Douane & Gestionnaire BDD (Import-Export)</h3>
+                <h3 class="lang-en">Customs Declarant & Database Manager (Import-Export)</h3>
+                <h4 class="lang-fr">La Poste Groupe (2022 - 2024)</h4>
+                <h4 class="lang-en">La Poste Group (2022 - 2024)</h4>
+                <p class="lang-fr"><strong>Data Management :</strong> Conception d’une base de données dédiée aux déclarants en douane et structuration locale des flux import-export.<br><br>
+                <strong>Opérations & Logistique :</strong> Saisie des déclarations (DAU), gestion des flux de colis, régularisation des dossiers et relation client.</p>
+                <p class="lang-en"><strong>Data Management:</strong> Designed a dedicated database for customs declarants and locally structured import-export flows.<br><br>
+                <strong>Operations & Logistics:</strong> Entered declarations (DAU), managed parcel flows, regularized files, and handled customer relations.</p>
+                <div class="tools">
+                    <span>Data Management</span><span>Logistique</span><span>Base de Données</span>
+                </div>
+            </div>
+
+            <div class="card fade-in project-item omics">
+                <i class="fas fa-dna icon-proj"></i>
+                <h3 class="lang-fr">Transcriptomique (Cancer du Poumon)</h3>
+                <h3 class="lang-en">Transcriptomics (Lung Cancer)</h3>
+                <h4 class="lang-fr">Projet Académique</h4>
+                <h4 class="lang-en">Academic Project</h4>
+                <p class="lang-fr">Analyse différentielle d'expression génique dans le cancer du poumon, enrichissement fonctionnel et identification d'une signature moléculaire prédictive.</p>
+                <p class="lang-en">Differential gene expression analysis, functional enrichment, and identification of a predictive molecular signature.</p>
+                <div class="tools">
+                    <span>R</span><span>GEO2R</span><span>Biostatistiques</span>
+                </div>
+            </div>
+
+            <div class="card fade-in project-item data-eng">
+                <i class="fas fa-server icon-proj"></i>
+                <h3 class="lang-fr">Entrepôt OMOP (MIMIC-IV)</h3>
+                <h3 class="lang-en">OMOP Warehouse (MIMIC-IV)</h3>
+                <h4 class="lang-fr">Projet Académique</h4>
+                <h4 class="lang-en">Academic Project</h4>
+                <p class="lang-fr">Construction d'un entrepôt clinique standardisé pour l'exploitation analytique de données de microbiologie hospitalière (MIMIC-IV).</p>
+                <p class="lang-en">Construction of a standardized clinical data warehouse for analytical use of hospital microbiology data.</p>
+                <div class="tools">
+                    <span>SQL</span><span>OMOP CDM</span><span>ETL</span>
+                </div>
+            </div>
+
+            <div class="card fade-in project-item data-eng">
+                <i class="fas fa-database icon-proj"></i>
+                <h3 class="lang-fr">Entrepôt Clinico-Génomique</h3>
+                <h3 class="lang-en">Clinico-Genomic Warehouse</h3>
+                <h4 class="lang-fr">Projet Académique</h4>
+                <h4 class="lang-en">Academic Project</h4>
+                <p class="lang-fr">Architecture intégrant les standards FHIR, OMOP, HPO et HGVS pour l'analyse des déficiences intellectuelles (AP-HP), incluant les contraintes RGPD.</p>
+                <p class="lang-en">Architecture integrating FHIR, OMOP, HPO, and HGVS standards for analyzing intellectual disabilities, including GDPR compliance.</p>
+                <div class="tools">
+                    <span>FHIR</span><span>Interopérabilité</span>
+                </div>
+            </div>
+
+            <div class="card fade-in project-item omics">
+                <i class="fas fa-brain icon-proj"></i>
+                <h3 class="lang-fr">Machine Learning en Santé</h3>
+                <h3 class="lang-en">Healthcare Machine Learning</h3>
+                <h4 class="lang-fr">Projet Académique</h4>
+                <h4 class="lang-en">Academic Project</h4>
+                <p class="lang-fr">Optimisation et comparaison de modèles d'IA (Random Forest, Régression logistique, LLMs) appliqués à la classification de données biomédicales.</p>
+                <p class="lang-en">Optimization and comparison of AI models (Random Forest, Logistic Regression, LLMs) applied to biomedical data classification.</p>
+                <div class="tools">
+                    <span>Python</span><span>Scikit-learn</span><span>Data Science</span>
+                </div>
+            </div>
+
+            <div class="card fade-in project-item omics data-eng">
+                <i class="fas fa-chart-line icon-proj"></i>
+                <h3 class="lang-fr">Analyse des Tendances d'Épuration Extrarénale</h3>
+                <h3 class="lang-en">Renal Replacement Therapy Trends Analysis</h3>
+                <h4 class="lang-fr">Projet Académique</h4>
+                <h4 class="lang-en">Academic Project</h4>
+                <p class="lang-fr">Analyse statistique et épidémiologique des tendances nationales des actes d'épuration extrarénale de 2015 à 2024 (ScanSanté, Data Ameli) via R et RMarkdown.</p>
+                <p class="lang-en">Statistical and epidemiological analysis of national renal replacement therapy trends from 2015 to 2024 using ScanSanté and Data Ameli datasets via R and RMarkdown.</p>
+                <div class="tools">
+                    <span>R</span><span>RMarkdown</span><span>ScanSanté</span><span>Data Ameli</span>
+                </div>
+            </div>
+
+            <div class="card fade-in project-item data-eng">
+                <i class="fas fa-project-diagram icon-proj"></i>
+                <h3 class="lang-fr">Système d'Aide à la Décision Médicale (SADM)</h3>
+                <h3 class="lang-en">Medical Decision Support System (SADM)</h3>
+                <h4 class="lang-fr">Projet Académique</h4>
+                <h4 class="lang-en">Academic Project</h4>
+                <p class="lang-fr">Conception et implémentation d'un prototype de SADM et d'une ontologie de l'hypertension artérielle sous Protégé, basés sur les guides cliniques HAS 2016 et VIDAL.</p>
+                <p class="lang-en">Design and implementation of a clinical decision support system prototype and hypertension ontology in Protégé based on HAS 2016 and VIDAL clinical guidelines.</p>
+                <div class="tools">
+                    <span>Protégé</span><span>Ontologies</span><span>Web Semantique</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- RECOMMANDATIONS -->
+    <section id="recommendations">
+        <h2 class="section-title fade-in">
+            <span class="lang-fr">Ce qu'ils disent de moi</span>
+            <span class="lang-en">Letters of Recommendation</span>
+        </h2>
+        <div class="testimonials">
+            
+            <div class="testi-card fade-in">
+                <div>
+                    <i class="fas fa-quote-left"></i>
+                    <p class="quote lang-fr">"Dalila a fait preuve d'une motivation exceptionnelle... une autonomie et une vision technique remarquables. Grâce à son travail, nous disposons désormais d'un outil fonctionnel de visualisation lipidomique."</p>
+                    <p class="quote lang-en">"Dalila demonstrated exceptional motivation... remarkable autonomy and technical insight. Thanks to her work, we now have a functional lipidomics visualization tool."</p>
+                </div>
+                <div class="testi-footer" style="flex-direction: column; align-items: flex-start;">
+                    <div>
+                        <h4>Julio Lopes Sampaio</h4>
+                        <span class="role lang-fr">Responsable Plateforme CurieCoreTech, Institut Curie</span>
+                        <span class="role lang-en">Head of CurieCoreTech Platform, Institut Curie</span>
+                    </div>
+                    <!-- LES LIENS LOCAUX SONT INTOUCHÉS -->
+                    <a href="./julio.pdf" target="_blank" class="pdf-link"><i class="fas fa-file-pdf"></i> <span class="lang-fr">Voir la lettre</span><span class="lang-en">View Letter</span></a>
+                </div>
+            </div>
+
+            <div class="testi-card fade-in">
+                <div>
+                    <i class="fas fa-quote-left"></i>
+                    <p class="quote lang-fr">"J'ai pu observer son sérieux, son assiduité et son excellent travail... La note de stage de 19/20 attribuée par le jury montre la qualité du travail réalisé."</p>
+                    <p class="quote lang-en">"I observed her dedication, diligence, and excellent work... The internship grade of 19/20 awarded by the jury reflects the high quality of her work."</p>
+                </div>
+                <div class="testi-footer" style="flex-direction: column; align-items: flex-start;">
+                    <div>
+                        <h4>Karima Sedki</h4>
+                        <span class="role lang-fr">Responsable Master 1 IBM, Univ. Sorbonne Paris Nord</span>
+                        <span class="role lang-en">Head of Master 1 IBM, Sorbonne Paris Nord Univ.</span>
+                    </div>
+                    <a href="./karima.pdf" target="_blank" class="pdf-link"><i class="fas fa-file-pdf"></i> <span class="lang-fr">Voir la lettre</span><span class="lang-en">View Letter</span></a>
+                </div>
+            </div>
+
+            <div class="testi-card fade-in">
+                <div>
+                    <i class="fas fa-quote-left"></i>
+                    <p class="quote lang-fr">"Elle travaillait de manière très indépendante, en veillant à ce que le code soit bien explicite et documenté. Je la recommande sans réserve."</p>
+                    <p class="quote lang-en">"She worked highly independently, ensuring her code was explicit and well-documented. I recommend her without reservation."</p>
+                </div>
+                <div class="testi-footer" style="flex-direction: column; align-items: flex-start;">
+                    <div>
+                        <h4>Ouardia Ait-Mohamed</h4>
+                        <span class="role lang-fr">Enseignante-chercheuse, LIMICS</span>
+                        <span class="role lang-en">Associate Professor & Researcher, LIMICS</span>
+                    </div>
+                    <a href="./ouardia.pdf" target="_blank" class="pdf-link"><i class="fas fa-file-pdf"></i> <span class="lang-fr">Voir la lettre</span><span class="lang-en">View Letter</span></a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER & CONTACT -->
+    <footer id="contact">
+        <div class="contact-content fade-in">
+            <h2 class="lang-fr">Travaillons Ensemble</h2>
+            <h2 class="lang-en">Let's Work Together</h2>
+            
+            <p class="lang-fr" style="font-weight: 600; color: #93c5fd; margin-bottom: 15px;">Ouverte aux opportunités en tant qu'Ingénieure Bioinformatique & Data.</p>
+            <p class="lang-en" style="font-weight: 600; color: #93c5fd; margin-bottom: 15px;">Open to opportunities as a Bioinformatics & Data Engineer.</p>
+            
+            <div class="socials">
+                <a href="https://www.linkedin.com/in/dalila-z-1b29ba291" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:dalilazerourou.spn@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="javascript:void(0);" onclick="alert('Profil GitHub en cours de mise à jour / Maintenance');" title="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+            
+            <div class="qr-section-container">
+                <div class="qr-message-box">
+                    <p class="lang-fr">Envie de découvrir mon profil LinkedIn depuis votre téléphone ? Scannez le QR code et retrouvez-moi en un instant !</p>
+                    <p class="lang-en">Want to check out my LinkedIn profile from your phone? Scan the QR code and connect with me in a snap!</p>
+                </div>
+                <div class="qr-container">
+                    <img src="./qrcode.jpeg" alt="QR Code LinkedIn Dalila ZEROUROU">
+                </div>
+            </div>
+            
+            <div class="contact-info">
+                dalilazerourou.spn@gmail.com <br>
+                +33 6 44 71 31 23 | Paris, France
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2026 Dalila ZEROUROU. <span class="lang-fr">Tous droits réservés.</span><span class="lang-en">All rights reserved.</span>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // 1. Script de Traduction instantanée (MÉTHODE ROBUSTE CSS)
+        function toggleLanguage() {
+            const htmlTag = document.documentElement;
+            // On inverse la langue principale du site
+            htmlTag.lang = htmlTag.lang === 'fr' ? 'en' : 'fr';
+            
+            // Relance l'animation de la machine à écrire dans la nouvelle langue
+            isDeleting = true; 
+        }
+
+        // 2. Machine à écrire CONSTANTE (Un seul titre)
+        const phrasesFr = ["Ingénieure Bioinformatique & Data"];
+        const phrasesEn = ["Bioinformatics & Data Engineer"];
+        
+        let isDeleting = false;
+        let txt = '';
+        
+        function typeWriter() {
+            // Détecte la langue actuelle de la page
+            const currentLang = document.documentElement.lang;
+            const fullTxt = currentLang === 'en' ? phrasesEn[0] : phrasesFr[0];
+            
+            if (isDeleting) {
+                txt = fullTxt.substring(0, txt.length - 1);
+            } else {
+                txt = fullTxt.substring(0, txt.length + 1);
+            }
+
+            document.getElementById('typewriter').innerHTML = txt + '<span style="border-right: 0.1em solid var(--primary); animation: blink 0.7s infinite;">&nbsp;</span>';
+
+            let speed = isDeleting ? 40 : 100;
+
+            if (!isDeleting && txt === fullTxt) {
+                speed = 3500; 
+                isDeleting = true;
+            } else if (isDeleting && txt === '') {
+                isDeleting = false;
+                speed = 500; 
+            }
+            setTimeout(typeWriter, speed);
+        }
+
+        // 3. Menu Hamburger (Mobile)
+        function toggleMenu() {
+            const navLinks = document.getElementById("navLinks");
+            navLinks.classList.toggle("active");
+        }
+        function closeMenu() {
+            const navLinks = document.getElementById("navLinks");
+            if (navLinks.classList.contains("active")) {
+                navLinks.classList.remove("active");
+            }
+        }
+
+        // 4. Filtrage des projets
+        function filterProjects(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const projects = document.querySelectorAll('.project-item');
+            projects.forEach(proj => {
+                if (category === 'all' || proj.classList.contains(category)) {
+                    proj.style.display = 'block';
+                    setTimeout(() => proj.style.opacity = '1', 10);
+                } else {
+                    proj.style.opacity = '0';
+                    setTimeout(() => proj.style.display = 'none', 300);
+                }
+            });
+        }
+
+        // 5. Initialisation
+        document.addEventListener("DOMContentLoaded", function() {
+            typeWriter();
+
+            const faders = document.querySelectorAll('.fade-in');
+            const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+
+            const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                });
+            }, appearOptions);
+
+            faders.forEach(fader => { appearOnScroll.observe(fader); });
+        });
+    </script>
+</body>
+</html>
